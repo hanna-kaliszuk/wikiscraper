@@ -87,7 +87,7 @@ class WikiScraper:
 
         return "No summary available."
 
-    def get_table(self, table_number, first_row_is_header=False):
+    def get_table(self, table_number, first_row_is_header=None):
         """Pobiera n-tą tabelę ze strony i zwraca DataFrame oraz częstotliwości wartości
 
         Args:
@@ -97,10 +97,9 @@ class WikiScraper:
         if not self.soup:
             if not self.fetch_data():
                 return None
-        # szukamy głównego kontenera z tekstem (w divie o klasie mw-parser-output)
+
         content_div = self.soup.find('div', class_='mw-parser-output')
 
-        # jezeli nie ma klasy, szukaj po id
         if not content_div:
             content_div = self.soup.find('div', id='mw-content-text')
 
@@ -108,6 +107,7 @@ class WikiScraper:
             return "Could not find content on the page."
 
         tables = content_div.find_all('table')
+
 
         if table_number > len(tables):
             return f"Table number {table_number} does not exist on the page."
@@ -118,8 +118,9 @@ class WikiScraper:
             html_str = str(selected_table)
 
             header_arg = 0 if first_row_is_header else None
+            index_col_arg = 0
 
-            dfs = pd.read_html(StringIO(html_str), header=header_arg, flavor='bs4')
+            dfs = pd.read_html(StringIO(html_str), header=header_arg, index_col=index_col_arg, flavor='bs4')
 
             if not dfs:
                 return "Pandas could not extract any data from the table."
@@ -128,20 +129,22 @@ class WikiScraper:
 
             csv_filename = f"{self.phrase}.csv"
 
-            df.to_csv(csv_filename, index=False, header=first_row_is_header, encoding='utf-8')
+            # Zawsze zapisuj indeks (pierwsza kolumna = nagłówki wierszy)
+            # Nagłówki kolumn zapisuj tylko jeśli first_row_is_header=True
+            df.to_csv(csv_filename, index=True, header=first_row_is_header, encoding='utf-8')
 
             print(f"\nTable saved to {csv_filename}")
 
-            # OBLICZ CZĘSTOTLIWOŚCI WARTOŚCI
-            all_values = []
-
-            #print("\nDEBUG: nazwy kolumn: ", df.columns)
+            # --- STATYSTYKI WARTOŚCI ---
+            # stack() spłaszcza tabelę do jednej kolumny.
+            # Ponieważ użyliśmy index_col=0, pierwsza kolumna jest w indeksie i NIE zostanie policzona (co jest poprawne).
+            # Jeśli first_row_is_header=True, nagłówki są w df.columns i też NIE zostaną policzone.
 
             if df.empty:
                 print("\nNo values to count frequencies")
-                return df, pd.Series()
-
-            freq_series = df.astype(str).stack().value_counts()
+                freq_series = pd.Series()
+            else:
+                freq_series = df.astype(str).stack().value_counts()
 
             return df, freq_series
 
@@ -150,21 +153,12 @@ class WikiScraper:
             error_msg = f"Error processing table: {e}\n{traceback.format_exc()}"
             return error_msg
 
-
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
     base_url = "https://bulbapedia.bulbagarden.net"
     scraper = WikiScraper(base_url, "Type")
     print(f"Fetching summary for {scraper.phrase} from {base_url}")
     summary = scraper.get_summary()
-    table = scraper.get_table(table_number=6, first_row_is_header=False)
+    table = scraper.get_table(table_number=6, first_row_is_header=True)
 
 
     print("#" * 30)

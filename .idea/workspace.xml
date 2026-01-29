@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="get_table poczatek">
+    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="get_table ale dalej nie tak">
       <change afterPath="$PROJECT_DIR$/requirements" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikiscraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/wikiscraper.py" afterDir="false" />
@@ -114,7 +114,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1769704247732</updated>
-      <workItem from="1769704248726" duration="12209000" />
+      <workItem from="1769704248726" duration="13119000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -148,7 +148,15 @@
       <option name="project" value="LOCAL" />
       <updated>1769711800227</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="get_table ale dalej nie tak">
+      <option name="closed" value="true" />
+      <created>1769716566239</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1769716566239</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -159,9 +167,10 @@
     <MESSAGE value="wprowadzenie klasy Scraper, funkcja fetch_data i jej testy" />
     <MESSAGE value="modyfikacja Scraper na WikiScraper, dodanie funkcji get_summary, modyfikacja testów" />
     <MESSAGE value="get_table poczatek" />
-    <option name="LAST_COMMIT_MESSAGE" value="get_table poczatek" />
+    <MESSAGE value="get_table ale dalej nie tak" />
+    <option name="LAST_COMMIT_MESSAGE" value="get_table ale dalej nie tak" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/wikiscraper$scraper.coverage" NAME="wikiscraper Coverage Results" MODIFIED="1769716541526" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/wikiscraper$scraper.coverage" NAME="wikiscraper Coverage Results" MODIFIED="1769717445868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
