@@ -88,6 +88,12 @@ class WikiScraper:
         return "No summary available."
 
     def get_table(self, table_number, first_row_is_header=False):
+        """Pobiera n-tą tabelę ze strony i zwraca DataFrame oraz częstotliwości wartości
+
+        Args:
+            table_number: numer tabeli do pobrania (1-indexed)
+            first_row_is_header: czy pierwszy wiersz to nagłówek kolumn
+        """
         if not self.soup:
             if not self.fetch_data():
                 return None
@@ -108,6 +114,44 @@ class WikiScraper:
 
         selected_table = tables[table_number - 1]
 
+        try:
+            html_str = str(selected_table)
+
+            header_arg = 0 if first_row_is_header else None
+
+            dfs = pd.read_html(StringIO(html_str), header=header_arg, flavor='bs4')
+
+            if not dfs:
+                return "Pandas could not extract any data from the table."
+
+            df = dfs[0]
+
+            csv_filename = f"{self.phrase}.csv"
+
+            df.to_csv(csv_filename, index=False, header=first_row_is_header, encoding='utf-8')
+
+            print(f"\nTable saved to {csv_filename}")
+
+            # OBLICZ CZĘSTOTLIWOŚCI WARTOŚCI
+            all_values = []
+
+            #print("\nDEBUG: nazwy kolumn: ", df.columns)
+
+            if df.empty:
+                print("\nNo values to count frequencies")
+                return df, pd.Series()
+
+            freq_series = df.astype(str).stack().value_counts()
+
+            return df, freq_series
+
+        except Exception as e:
+            import traceback
+            error_msg = f"Error processing table: {e}\n{traceback.format_exc()}"
+            return error_msg
+
+
+
 
 
 
@@ -120,12 +164,8 @@ if __name__ == "__main__":
     scraper = WikiScraper(base_url, "Type")
     print(f"Fetching summary for {scraper.phrase} from {base_url}")
     summary = scraper.get_summary()
-    table = scraper.get_table(table_number=2, first_row_is_header=True)
+    table = scraper.get_table(table_number=6, first_row_is_header=False)
 
-    print("#" * 30)
-    print("SUMMARY:")
-    print(summary)
-    print("#" * 30)
 
     print("#" * 30)
     print("TABLE:")
