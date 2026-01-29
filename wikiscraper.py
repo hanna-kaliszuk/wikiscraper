@@ -1,7 +1,9 @@
 # musimy mieć konstruktor wszystkomający - przyjmuje konfiguracje, a pobieranie danych jest osobna metoda
 # obsluga trybu offline oraz online
 # parsowanie html
+import argparse
 import os
+import sys
 
 import requests
 import pandas as pd
@@ -153,15 +155,63 @@ class WikiScraper:
             error_msg = f"Error processing table: {e}\n{traceback.format_exc()}"
             return error_msg
 
+class ScraperController:
+    def __init__(self, args):
+        self.args = args
+        self.base_url = "https://bulbapedia.bulbagarden.net"
+
+    def run(self):
+        if self.args.summary:
+            phrase = self.args.summary
+            print(f"Fetching summary for {phrase} from {self.base_url}")
+
+            scraper = WikiScraper(
+                self.base_url,
+                phrase,
+                use_local_file=bool(self.args.file),
+                local_file_path=self.args.file,
+            )
+
+            summary = scraper.get_summary()
+            print(summary)
+            print("#" * 30)
+
+        elif self.args.table:
+            phrase = self.args.table
+            print(f"Fetching table for {phrase} from {self.base_url}")
+
+            scraper = WikiScraper(
+                self.base_url,
+                phrase,
+                use_local_file=bool(self.args.file),
+                local_file_path=self.args.file,
+            )
+
+            table_num = self.args.number
+            use_header = self.args.first_row_is_header
+
+            result, stats = scraper.get_table(table_num, first_row_is_header=use_header)
+
+            if isinstance(result, str):
+                print(result) # bo byl blad
+            else:
+                print("\nValue Counts:")
+                print(stats.to_frame("Count"))
+            print("#" * 30)
+
 if __name__ == "__main__":
-    base_url = "https://bulbapedia.bulbagarden.net"
-    scraper = WikiScraper(base_url, "Type")
-    print(f"Fetching summary for {scraper.phrase} from {base_url}")
-    summary = scraper.get_summary()
-    table = scraper.get_table(table_number=6, first_row_is_header=True)
+    parser = argparse.ArgumentParser(description="WikiScraper Tool for Bulbapedia")
+    parser.add_argument("--summary", type=str, metavar='"fraza"', help="Fetch summary for the given phrase")
+    parser.add_argument("--table", type=str, metavar='"fraza"', help="Fetch table for the given phrase")
+    parser.add_argument("--number", type=int, default=1, help="Table number to fetch (needed with --table)")
+    parser.add_argument("--first-row-is-header", action="store_true", help="Indicates if the first row of the table is a header (needed with --table)")
+    parser.add_argument("--file", type=str, metavar="file path", help="Path to the local file to use instead of fetching from the internet")
 
+    args = parser.parse_args()
 
-    print("#" * 30)
-    print("TABLE:")
-    print(table)
-    print("#" * 30)
+    if not any(vars(args).values()):
+        parser.print_help()
+        sys.exit(1)
+
+    controller = ScraperController(args)
+    controller.run()
