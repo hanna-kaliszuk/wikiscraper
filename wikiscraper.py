@@ -32,6 +32,9 @@ class WikiScraper:
         return f"{self.base_url}/wiki/{self.phrase.replace(' ', '_')}"
 
     def _get_content_div(self):
+        if not self.soup:
+            return None
+
         content_div = self.soup.find("div", {"class": CONTENT_CLASS})
 
         if not content_div:
@@ -39,42 +42,55 @@ class WikiScraper:
 
         return content_div
 
+    def _load_from_file(self):
+        if not self.local_file_path or not os.path.exists(self.local_file_path):
+            raise FileNotFoundError(f"File {self.local_file_path} does not exist")
+
+        with open(self.local_file_path, 'r', encoding='utf-8') as f:
+            return f.read()
+
+    def _load_from_web(self):
+        url = self._get_url()
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.text
+
+    def _table_to_dataframe(self, table, first_row_is_header):
+        html_str = str(table)
+
+        header_arg = 0 if first_row_is_header else None
+        index_col_arg = 0
+
+        dfs = pd.read_html(StringIO(html_str), header=header_arg, index_col=index_col_arg, flavor='bs4')
+
+        result = dfs[0] if dfs else None
+        return result
+
+    def _count_table_values(self, df):
+        if df.empty:
+            return pd.Series()
+        return df.astype(str).stack().value_counts()
+
+
     def fetch_data(self):
-        # główna metoda do pobierania danych. Decyduje czy HTML będzie pobierany z dysku czy z internetu. Zwraca true
-        # jak sie uda i false jak nie
-        html_content = ""
+        try:
+            if self.use_local_file:
+                html_content = self._load_from_file()
+            else:
+                html_content = self._load_from_web()
 
-        if self.use_local_file:
-            # jeżeli plik z dysku
-            if not self.local_file_path or not os.path.exists(self.local_file_path):
-                # jeżeli nie ma pliku lub nie ma istniejącej do niego ścieżki
-                print(f"File {self.local_file_path} does not exist")
-                return False
+            self.soup = BeautifulSoup(html_content, "html.parser")
+            return True
 
-            with open(self.local_file_path, "r", encoding="utf-8") as f:
-                html_content = f.read()
-
-        else:
-            # plik z internetu
-            url = self._get_url()
-
-            try:
-                response = requests.get(url) # wyślij żądnanie do serwera
-
-                if response.status_code == 404: # jak strona nie istnieje to powiedz o tym
-                    print(f"Error 404: Page not found at {url}")
-                    return False
-
-                response.raise_for_status() # sprawdź inne błędy
-                html_content = response.text # pobierz treść HTML
-
-            except requests.RequestException as e:
-                # błąd połączenia
-                print(f"An error occurred while fetching data: {e}")
-                return False
-
-        self.soup = BeautifulSoup(html_content, "html.parser")
-        return True
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 404:
+                print(f"Error 404: The page for '{self.phrase}' was not found.")
+            else:
+                print(f"HTTP Error: {e}")
+            return False
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return False
 
     def get_summary(self):
         # sprawdzamy czy mamy dane. jak nie, to próbujemy je pobrać
@@ -115,24 +131,16 @@ class WikiScraper:
 
         tables = content_div.find_all('table')
 
-
-        if table_number > len(tables):
+        if table_number > len(tables) or table_number < 1:
             return f"Table number {table_number} does not exist on the page.", None
 
         selected_table = tables[table_number - 1]
 
         try:
-            html_str = str(selected_table)
+            df = self._table_to_dataframe(selected_table, first_row_is_header)
 
-            header_arg = 0 if first_row_is_header else None
-            index_col_arg = 0
-
-            dfs = pd.read_html(StringIO(html_str), header=header_arg, index_col=index_col_arg, flavor='bs4')
-
-            if not dfs:
-                return "Pandas could not extract any data from the table."
-
-            df = dfs[0]
+            if df is None:
+                return "Could not extract table", None
 
             csv_filename = f"{self.phrase}.csv"
 
@@ -145,17 +153,12 @@ class WikiScraper:
             # Ponieważ użyliśmy index_col=0, pierwsza kolumna jest w indeksie i NIE zostanie policzona (co jest poprawne).
             # Jeśli first_row_is_header=True, nagłówki są w df.columns i też NIE zostaną policzone.
 
-            if df.empty:
-                print("\nNo values to count frequencies")
-                freq_series = pd.Series()
-            else:
-                freq_series = df.astype(str).stack().value_counts()
+            freq_series = self._count_table_values(df)
 
-            return df, freq_series, csv_filename
+            return df, freq_series
 
         except Exception as e:
-            import traceback
-            error_msg = f"Error processing table: {e}\n{traceback.format_exc()}"
+            error_msg = f"Error processing table: {e}"
             return error_msg, None
 
     def count_words(self):
