@@ -34,7 +34,8 @@ class WikiScraper:
             # jeżeli plik z dysku
             if not self.local_file_path or not os.path.exists(self.local_file_path):
                 # jeżeli nie ma pliku lub nie ma istniejącej do niego ścieżki
-                raise FileNotFoundError(f"File {self.local_file_path} does not exist")
+                print(f"File {self.local_file_path} does not exist")
+                return False
 
             with open(self.local_file_path, "r", encoding="utf-8") as f:
                 html_content = f.read()
@@ -65,7 +66,7 @@ class WikiScraper:
         # sprawdzamy czy mamy dane. jak nie, to próbujemy je pobrać
         if not self.soup:
             if not self.fetch_data():
-                return None
+                return "Error: could not fetch data."
 
         # szukamy głównego kontenera z tekstem (w divie o klasie mw-parser-output)
         content_div = self.soup.find('div', class_='mw-parser-output')
@@ -98,7 +99,7 @@ class WikiScraper:
         """
         if not self.soup:
             if not self.fetch_data():
-                return None
+                return "Error: Could not fetch data.", None
 
         content_div = self.soup.find('div', class_='mw-parser-output')
 
@@ -106,13 +107,13 @@ class WikiScraper:
             content_div = self.soup.find('div', id='mw-content-text')
 
         if not content_div:
-            return "Could not find content on the page."
+            return "Could not find content on the page.", None
 
         tables = content_div.find_all('table')
 
 
         if table_number > len(tables):
-            return f"Table number {table_number} does not exist on the page."
+            return f"Table number {table_number} does not exist on the page.", None
 
         selected_table = tables[table_number - 1]
 
@@ -153,7 +154,7 @@ class WikiScraper:
         except Exception as e:
             import traceback
             error_msg = f"Error processing table: {e}\n{traceback.format_exc()}"
-            return error_msg
+            return error_msg, None
 
 class ScraperController:
     def __init__(self, args):
@@ -163,7 +164,7 @@ class ScraperController:
     def run(self):
         if self.args.summary:
             phrase = self.args.summary
-            print(f"Fetching summary for {phrase} from {self.base_url}")
+            print(f"--- Fetching summary for {phrase} from {self.base_url} ---")
 
             scraper = WikiScraper(
                 self.base_url,
@@ -174,11 +175,11 @@ class ScraperController:
 
             summary = scraper.get_summary()
             print(summary)
-            print("#" * 30)
+            print("-" * 60)
 
         elif self.args.table:
             phrase = self.args.table
-            print(f"Fetching table for {phrase} from {self.base_url}")
+            print(f"--- Fetching table for {phrase} from {self.base_url} ---")
 
             scraper = WikiScraper(
                 self.base_url,
@@ -197,7 +198,7 @@ class ScraperController:
             else:
                 print("\nValue Counts:")
                 print(stats.to_frame("Count"))
-            print("#" * 30)
+            print("-" * 60)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="WikiScraper Tool for Bulbapedia")
