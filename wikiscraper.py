@@ -4,7 +4,8 @@ import sys
 import argparse
 import re
 import json
-from collections import Counter
+import time
+from collections import Counter, deque
 from io import StringIO
 
 # -- third-party imports ---
@@ -76,7 +77,6 @@ class WikiScraper:
         if df.empty:
             return pd.Series()
         return df.astype(str).stack().value_counts()
-
 
     def fetch_data(self):
         try:
@@ -173,11 +173,11 @@ class WikiScraper:
         # sprawdzamy czy mamy dane. jak nie, to próbujemy je pobrać
         if not self.soup:
             if not self.fetch_data():
-                return "Error: could not fetch data."
+                return False
 
         content_div = self._get_content_div()
         if not content_div:
-            return "Could not find content on the page."
+            return False
 
         full_text = content_div.get_text(separator=' ', strip=True)
         # znajdz wszystkie slowa (litery + cyfry, bez interpunkcji)
@@ -209,10 +209,31 @@ class WikiScraper:
         try:
             with open(json_filename, 'w', encoding='utf-8') as f:
                 json.dump(global_counts, f, ensure_ascii=False, indent=4)
-            print(f"Updated word counts saved to {json_filename}.")
-            return f"Update successful. Total unique words: {len(global_counts)}."
+            return True
         except Exception as e:
-            return f"Error saving word counts: {e}"
+            print(f"Error saving word counts: {e}")
+            return False
+
+    def get_internal_links(self):
+        # pobiera liste fraz z linkow wewnetrznych
+        links = []
+        if not self.soup:
+            return links
+
+        content_div = self._get_content_div()
+        if not content_div:
+            return links
+
+        # szukamy wszystking tagow <a>
+        for a_tag in content_div.find_all('a', href=True):
+            href = a_tag['href']
+
+            if href.startswith("/wiki/"):
+                phrase = href.replace("/wiki/", "").replace("_", " ")
+
+                links.append(phrase)
+
+        return links
 
 
 class ScraperController:
@@ -237,7 +258,44 @@ class ScraperController:
             print("-" * 60)
             return
 
+        if self.args.auto_count_words:
+            start_phrase = self.args.auto_count_words
+            max_depth = self.args.depth
+            wait_time = self.args.wait
 
+            print(f"--- Auto-Scraping starting from '{start_phrase}' ---")
+
+            queue = deque([(start_phrase, 0)])
+            visited = set([start_phrase])
+
+            while queue:
+                current_phrase, current_depth = queue.popleft()
+
+                print(f"Currently processing phrase: {current_phrase}")
+
+                scraper = WikiScraper(current_phrase)
+                success = scraper.count_words()
+
+                if success and current_depth < max_depth:
+                    links = scraper.get_internal_links()
+
+                    added_count = 0
+                    for link in links:
+                        if link not in visited:
+                            visited.add(link)
+                            queue.append((link, current_depth + 1))
+                            added_count += 1
+
+                    print(f"    -> Found {len(links)} links, added {added_count} new to the queue")
+
+                if queue:
+                    print(f"    -> Waiting {wait_time} seconds...")
+                    time.sleep(wait_time)
+
+                print("-" * 60)
+
+            print("Auto scrapping finished")
+            return
 
         if self.args.summary:
             phrase = self.args.summary
@@ -296,11 +354,15 @@ if __name__ == "__main__":
     parser.add_argument("--summary", type=str, metavar='"phrase"', help="Fetch summary for the given phrase")
     parser.add_argument("--table", type=str, metavar='"phrase"', help="Fetch table for the given phrase")
     parser.add_argument("--count-words", type=str, metavar='"phrase"', help="Count words in the given article and update word-counts.json")
+    parser.add_argument("--auto-count-words", type=str, metavar='"phrase"', help="Recursivelu count words starting from 'phrase'")
     parser.add_argument("--analyze-relative-word-frequency", action="store_true", help="Analyze frequencies")
 
     parser.add_argument("--number", type=int, default=1, help="Table number to fetch (needed with --table)")
     parser.add_argument("--first-row-is-header", action="store_true", help="Indicates if the first row of the table is a header (needed with --table)")
     parser.add_argument("--file", type=str, metavar="file path", help="Path to the local file to use instead of fetching from the internet")
+
+    parser.add_argument("--depth", type=int, default=1, help="Depth for auto-scraping (default = 1)")
+    parser.add_argument("--wait", type=float, default=1.0, help="Wait time between requests (seconds)")
 
     parser.add_argument("--mode", type=str, default="language", choices=["article", "language"], help="Sort mode for analysis")
     parser.add_argument("--count", type=int, default=10, help="Number of words to analyze")

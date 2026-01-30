@@ -41,7 +41,7 @@ class WordAnalyzer:
         max_lang_freq = word_frequency(most_common_word, self.lang)
 
         for word in top_words:
-            wiki_raw = self.wiki_counts.get(word)
+            wiki_raw = self.wiki_counts.get(word, 0)
             lang_freq = word_frequency(word, self.lang)
 
             wiki_norm = wiki_raw / max_wiki_count

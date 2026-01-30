@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="funkcje pomocnicze">
+    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="analizowanie słów, rysowanie wykresu, dodatkowe argumenty do parsowania">
       <change afterPath="$PROJECT_DIR$/requirements" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/analyzer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikiscraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/wikiscraper.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -122,7 +121,7 @@
       <option name="presentableId" value="Default" />
       <updated>1769704247732</updated>
       <workItem from="1769704248726" duration="14399000" />
-      <workItem from="1769760136461" duration="6141000" />
+      <workItem from="1769760136461" duration="9827000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -212,7 +211,15 @@
       <option name="project" value="LOCAL" />
       <updated>1769765043600</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="analizowanie słów, rysowanie wykresu, dodatkowe argumenty do parsowania">
+      <option name="closed" value="true" />
+      <created>1769766994464</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1769766994464</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,7 +237,8 @@
     <MESSAGE value="dodanie count_words" />
     <MESSAGE value="wyodrębnienie get_content_div do f pomocniczej" />
     <MESSAGE value="funkcje pomocnicze" />
-    <option name="LAST_COMMIT_MESSAGE" value="funkcje pomocnicze" />
+    <MESSAGE value="analizowanie słów, rysowanie wykresu, dodatkowe argumenty do parsowania" />
+    <option name="LAST_COMMIT_MESSAGE" value="analizowanie słów, rysowanie wykresu, dodatkowe argumenty do parsowania" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/wikiscraper$wikiscraper.coverage" NAME="wikiscraper Coverage Results" MODIFIED="1769762749190" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
