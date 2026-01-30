@@ -120,6 +120,18 @@ class WikiScraper:
 
         return "No summary available."
 
+    def get_article_text(self):
+        if not self.soup:
+            if not self.fetch_data():
+                return ""
+
+        content_div = self._get_content_div()
+
+        if not content_div:
+            return ""
+
+        return content_div.get_text(separator=' ', strip=True)
+
     def get_table(self, table_number, first_row_is_header=False):
         """Pobiera n-tą tabelę ze strony i zwraca DataFrame oraz częstotliwości wartości
 
