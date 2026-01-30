@@ -1,23 +1,26 @@
-# musimy mieć konstruktor wszystkomający - przyjmuje konfiguracje, a pobieranie danych jest osobna metoda
-# obsluga trybu offline oraz online
-# parsowanie html
+# --- standard library imports ---
 import os
 import sys
-
 import argparse
 import re
 import json
+from collections import Counter
+from io import StringIO
+
+# -- third-party imports ---
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
-from io import StringIO
-from collections import Counter
 
+# --- constants ---
+BASE_URL = "https://bulbapedia.bulbagarden.net"
+CONTENT_CLASS = "mw-parser-output"
+CONTENT_ID = "mw-content-text"
 
 class WikiScraper:
-    def __init__(self, base_url, phrase, use_local_file=False, local_file_path=None, first_row_is_header=False):
+    def __init__(self, phrase, use_local_file=False, local_file_path=None, first_row_is_header=False):
         # konstruktor, który umożliwia przechowywanie swojego stanu.
-        self.base_url = base_url
+        self.base_url = BASE_URL
         self.phrase = phrase
         self.use_local_file = use_local_file
         self.local_file_path = local_file_path
@@ -27,6 +30,14 @@ class WikiScraper:
     def _get_url(self):
         # metoda pomocnicza do generowania URL z podanej frazy
         return f"{self.base_url}/wiki/{self.phrase.replace(' ', '_')}"
+
+    def _get_content_div(self):
+        content_div = self.soup.find("div", {"class": CONTENT_CLASS})
+
+        if not content_div:
+            content_div = self.soup.find("div", {"id": CONTENT_ID})
+
+        return content_div
 
     def fetch_data(self):
         # główna metoda do pobierania danych. Decyduje czy HTML będzie pobierany z dysku czy z internetu. Zwraca true
@@ -71,13 +82,7 @@ class WikiScraper:
             if not self.fetch_data():
                 return "Error: could not fetch data."
 
-        # szukamy głównego kontenera z tekstem (w divie o klasie mw-parser-output)
-        content_div = self.soup.find('div', class_='mw-parser-output')
-
-        # jezeli nie ma klasy, szukaj po id
-        if not content_div:
-            content_div = self.soup.find('div', id='mw-content-text')
-
+        content_div = self._get_content_div()
         if not content_div:
             return "Could not find content on the page."
 
@@ -93,7 +98,7 @@ class WikiScraper:
 
         return "No summary available."
 
-    def get_table(self, table_number, first_row_is_header=None):
+    def get_table(self, table_number, first_row_is_header=False):
         """Pobiera n-tą tabelę ze strony i zwraca DataFrame oraz częstotliwości wartości
 
         Args:
@@ -104,11 +109,7 @@ class WikiScraper:
             if not self.fetch_data():
                 return "Error: Could not fetch data.", None
 
-        content_div = self.soup.find('div', class_='mw-parser-output')
-
-        if not content_div:
-            content_div = self.soup.find('div', id='mw-content-text')
-
+        content_div = self._get_content_div()
         if not content_div:
             return "Could not find content on the page.", None
 
@@ -139,8 +140,6 @@ class WikiScraper:
             # Nagłówki kolumn zapisuj tylko jeśli first_row_is_header=True
             df.to_csv(csv_filename, index=True, header=first_row_is_header, encoding='utf-8')
 
-            print(f"\nTable saved to {csv_filename}")
-
             # --- STATYSTYKI WARTOŚCI ---
             # stack() spłaszcza tabelę do jednej kolumny.
             # Ponieważ użyliśmy index_col=0, pierwsza kolumna jest w indeksie i NIE zostanie policzona (co jest poprawne).
@@ -152,7 +151,7 @@ class WikiScraper:
             else:
                 freq_series = df.astype(str).stack().value_counts()
 
-            return df, freq_series
+            return df, freq_series, csv_filename
 
         except Exception as e:
             import traceback
@@ -167,13 +166,7 @@ class WikiScraper:
             if not self.fetch_data():
                 return "Error: could not fetch data."
 
-        # szukamy głównego kontenera z tekstem (w divie o klasie mw-parser-output)
-        content_div = self.soup.find('div', class_='mw-parser-output')
-
-        # jezeli nie ma klasy, szukaj po id
-        if not content_div:
-            content_div = self.soup.find('div', id='mw-content-text')
-
+        content_div = self._get_content_div()
         if not content_div:
             return "Could not find content on the page."
 
@@ -213,20 +206,16 @@ class WikiScraper:
             return f"Error saving word counts: {e}"
 
 
-
-
 class ScraperController:
     def __init__(self, args):
         self.args = args
-        self.base_url = "https://bulbapedia.bulbagarden.net"
 
     def run(self):
         if self.args.summary:
             phrase = self.args.summary
-            print(f"--- Fetching summary for {phrase} from {self.base_url} ---")
+            print(f"--- Fetching summary for {phrase} from {BASE_URL} ---")
 
             scraper = WikiScraper(
-                self.base_url,
                 phrase,
                 use_local_file=bool(self.args.file),
                 local_file_path=self.args.file,
@@ -238,10 +227,9 @@ class ScraperController:
 
         elif self.args.table:
             phrase = self.args.table
-            print(f"--- Fetching table for {phrase} from {self.base_url} ---")
+            print(f"--- Fetching table for {phrase} from {BASE_URL} ---")
 
             scraper = WikiScraper(
-                self.base_url,
                 phrase,
                 use_local_file=bool(self.args.file),
                 local_file_path=self.args.file,
@@ -261,10 +249,9 @@ class ScraperController:
 
         elif self.args.count_words:
             phrase = self.args.count_words
-            print(f"--- Counting words for {phrase} from {self.base_url} ---")
+            print(f"--- Counting words for {phrase} from {BASE_URL} ---")
 
             scraper = WikiScraper(
-                self.base_url,
                 phrase,
                 use_local_file=bool(self.args.file),
                 local_file_path=self.args.file,

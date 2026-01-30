@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="poprawa obsługi błędów i wyświetlannych komunikatów">
+    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="dodanie count_words">
       <change afterPath="$PROJECT_DIR$/requirements" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikiscraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/wikiscraper.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -120,7 +121,7 @@
       <option name="presentableId" value="Default" />
       <updated>1769704247732</updated>
       <workItem from="1769704248726" duration="14399000" />
-      <workItem from="1769760136461" duration="1419000" />
+      <workItem from="1769760136461" duration="2142000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -186,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1769760725025</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="dodanie count_words">
+      <option name="closed" value="true" />
+      <created>1769761763292</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1769761763292</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,7 +210,8 @@
     <MESSAGE value="get_table" />
     <MESSAGE value="scrape controller" />
     <MESSAGE value="poprawa obsługi błędów i wyświetlannych komunikatów" />
-    <option name="LAST_COMMIT_MESSAGE" value="poprawa obsługi błędów i wyświetlannych komunikatów" />
+    <MESSAGE value="dodanie count_words" />
+    <option name="LAST_COMMIT_MESSAGE" value="dodanie count_words" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/wikiscraper$scraper.coverage" NAME="wikiscraper Coverage Results" MODIFIED="1769717709914" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
