@@ -12,6 +12,12 @@ import requests
 import pandas as pd
 from bs4 import BeautifulSoup
 
+# --- local imports ---
+try:
+    from analyzer import WordAnalyzer
+except ImportError:
+    WordAnalyzer = None
+
 # --- constants ---
 BASE_URL = "https://bulbapedia.bulbagarden.net"
 CONTENT_CLASS = "mw-parser-output"
@@ -214,6 +220,25 @@ class ScraperController:
         self.args = args
 
     def run(self):
+        if self.args.analyze_relative_word_frequency:
+            if WordAnalyzer is None:
+                print("Error: Could not import 'analyzer' module. Make sure it is available.")
+                return
+
+            print(f"--- Analyzing Word Frequency (Mode: {self.args.mode}) ---")
+            analyzer = WordAnalyzer()
+
+            df = analyzer.analyze(mode=self.args.mode, count=self.args.count)
+            print(df.to_string(index=False))
+
+            if self.args.chart:
+                analyzer.generate_chart(df, self.args.chart)
+
+            print("-" * 60)
+            return
+
+
+
         if self.args.summary:
             phrase = self.args.summary
             print(f"--- Fetching summary for {phrase} from {BASE_URL} ---")
@@ -267,12 +292,20 @@ class ScraperController:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="WikiScraper Tool for Bulbapedia")
+
     parser.add_argument("--summary", type=str, metavar='"phrase"', help="Fetch summary for the given phrase")
     parser.add_argument("--table", type=str, metavar='"phrase"', help="Fetch table for the given phrase")
+    parser.add_argument("--count-words", type=str, metavar='"phrase"', help="Count words in the given article and update word-counts.json")
+    parser.add_argument("--analyze-relative-word-frequency", action="store_true", help="Analyze frequencies")
+
     parser.add_argument("--number", type=int, default=1, help="Table number to fetch (needed with --table)")
     parser.add_argument("--first-row-is-header", action="store_true", help="Indicates if the first row of the table is a header (needed with --table)")
     parser.add_argument("--file", type=str, metavar="file path", help="Path to the local file to use instead of fetching from the internet")
-    parser.add_argument("--count-words", type=str, metavar='"phrase"', help="Count words in the given article and update word-counts.json")
+
+    parser.add_argument("--mode", type=str, default="language", choices=["article", "language"], help="Sort mode for analysis")
+    parser.add_argument("--count", type=int, default=10, help="Number of words to analyze")
+    parser.add_argument("--chart", type=str, metavar="path.png", help="Path to save chart")
+
 
     args = parser.parse_args()
 
