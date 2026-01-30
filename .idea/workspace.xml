@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="analiza: import bibliotek, lang_confidence_score, pobieranie danych, skanowanie tekstów, sprawdzanie języków">
+    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="formalne komentarze po ang">
       <change afterPath="$PROJECT_DIR$/requirements" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/analysis.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -193,7 +194,7 @@
       <updated>1769704247732</updated>
       <workItem from="1769704248726" duration="14399000" />
       <workItem from="1769760136461" duration="10785000" />
-      <workItem from="1769778591157" duration="10713000" />
+      <workItem from="1769778591157" duration="17196000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -339,7 +340,23 @@
       <option name="project" value="LOCAL" />
       <updated>1769789764443</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="rysowanie wykresu z podsumowaniem">
+      <option name="closed" value="true" />
+      <created>1769792914408</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1769792914408</updated>
+    </task>
+    <task id="LOCAL-00020" summary="formalne komentarze po ang">
+      <option name="closed" value="true" />
+      <created>1769795431057</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1769795431057</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -364,7 +381,9 @@
     <MESSAGE value="integration_test," />
     <MESSAGE value="funkcja do pobierania calego tekstu artykulu" />
     <MESSAGE value="analiza: import bibliotek, lang_confidence_score, pobieranie danych, skanowanie tekstów, sprawdzanie języków" />
-    <option name="LAST_COMMIT_MESSAGE" value="analiza: import bibliotek, lang_confidence_score, pobieranie danych, skanowanie tekstów, sprawdzanie języków" />
+    <MESSAGE value="rysowanie wykresu z podsumowaniem" />
+    <MESSAGE value="formalne komentarze po ang" />
+    <option name="LAST_COMMIT_MESSAGE" value="formalne komentarze po ang" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
