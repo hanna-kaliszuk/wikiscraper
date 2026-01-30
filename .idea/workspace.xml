@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="testy get)utl i get_summary offline">
-      <change afterPath="$PROJECT_DIR$/integration_test.py" afterDir="false" />
+    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="testy jednostkowe">
+      <change afterPath="$PROJECT_DIR$/analysis.ipynb" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/requirements" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_wikiscraper.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/integration_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikiscraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/wikiscraper.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +196,7 @@
       <updated>1769704247732</updated>
       <workItem from="1769704248726" duration="14399000" />
       <workItem from="1769760136461" duration="10785000" />
-      <workItem from="1769778591157" duration="1433000" />
+      <workItem from="1769778591157" duration="7521000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -310,7 +310,15 @@
       <option name="project" value="LOCAL" />
       <updated>1769778651623</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="testy jednostkowe">
+      <option name="closed" value="true" />
+      <created>1769780038581</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1769780038581</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -331,10 +339,22 @@
     <MESSAGE value="analizowanie słów, rysowanie wykresu, dodatkowe argumenty do parsowania" />
     <MESSAGE value="get_internal_links i auto-scraper" />
     <MESSAGE value="testy get)utl i get_summary offline" />
-    <option name="LAST_COMMIT_MESSAGE" value="testy get)utl i get_summary offline" />
+    <MESSAGE value="testy jednostkowe" />
+    <option name="LAST_COMMIT_MESSAGE" value="testy jednostkowe" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/wikiscraper$.coverage" NAME=" Coverage Results" MODIFIED="1769779111237" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/wikiscraper$.coverage" NAME=" Coverage Results" MODIFIED="1769780569994" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/wikiscraper$wikiscraper.coverage" NAME="wikiscraper Coverage Results" MODIFIED="1769762749190" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/wikiscraper$scraper.coverage" NAME="wikiscraper Coverage Results" MODIFIED="1769717709914" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
