@@ -1,14 +1,17 @@
 # musimy mieć konstruktor wszystkomający - przyjmuje konfiguracje, a pobieranie danych jest osobna metoda
 # obsluga trybu offline oraz online
 # parsowanie html
-import argparse
 import os
 import sys
 
+import argparse
+import re
+import json
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
 from io import StringIO
+from collections import Counter
 
 
 class WikiScraper:
@@ -156,6 +159,62 @@ class WikiScraper:
             error_msg = f"Error processing table: {e}\n{traceback.format_exc()}"
             return error_msg, None
 
+    def count_words(self):
+        json_filename = "word-counts.json"
+
+        # sprawdzamy czy mamy dane. jak nie, to próbujemy je pobrać
+        if not self.soup:
+            if not self.fetch_data():
+                return "Error: could not fetch data."
+
+        # szukamy głównego kontenera z tekstem (w divie o klasie mw-parser-output)
+        content_div = self.soup.find('div', class_='mw-parser-output')
+
+        # jezeli nie ma klasy, szukaj po id
+        if not content_div:
+            content_div = self.soup.find('div', id='mw-content-text')
+
+        if not content_div:
+            return "Could not find content on the page."
+
+        full_text = content_div.get_text(separator=' ', strip=True)
+        # znajdz wszystkie slowa (litery + cyfry, bez interpunkcji)
+        # regex \w+ lapie slowa, a .lower() normalizuje do malych liter
+        words = re.findall(r'\w+', full_text.lower())
+
+        # zlicz wystapienia w tekscie
+        current_counts = Counter(words)
+        print(f"Found {len(current_counts)} unique words.")
+
+        # odczyt -> aktualizacja -> zapis do pliku JSON
+        global_counts = {}
+
+        if os.path.exists(json_filename):
+            try:
+                with open(json_filename, 'r', encoding='utf-8') as f:
+                    global_counts = json.load(f)
+            except json.JSONDecodeError:
+                print("Could not decode JSON file. Starting fresh.")
+
+        # dla kazdego slowa w aktualnych zliczeniach dodajemy liczbe jego wystapien do globalnych zliczen
+        for word, count in current_counts.items():
+            if word in global_counts:
+                global_counts[word] += count
+            else:
+                global_counts[word] = count
+
+        # zapisujemy zaktualizowane zliczenia do pliku JSON
+        try:
+            with open(json_filename, 'w', encoding='utf-8') as f:
+                json.dump(global_counts, f, ensure_ascii=False, indent=4)
+            print(f"Updated word counts saved to {json_filename}.")
+            return f"Update successful. Total unique words: {len(global_counts)}."
+        except Exception as e:
+            return f"Error saving word counts: {e}"
+
+
+
+
 class ScraperController:
     def __init__(self, args):
         self.args = args
@@ -200,13 +259,30 @@ class ScraperController:
                 print(stats.to_frame("Count"))
             print("-" * 60)
 
+        elif self.args.count_words:
+            phrase = self.args.count_words
+            print(f"--- Counting words for {phrase} from {self.base_url} ---")
+
+            scraper = WikiScraper(
+                self.base_url,
+                phrase,
+                use_local_file=bool(self.args.file),
+                local_file_path=self.args.file,
+            )
+
+            result = scraper.count_words()
+            print(result)
+            print("-" * 60)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="WikiScraper Tool for Bulbapedia")
-    parser.add_argument("--summary", type=str, metavar='"fraza"', help="Fetch summary for the given phrase")
-    parser.add_argument("--table", type=str, metavar='"fraza"', help="Fetch table for the given phrase")
+    parser.add_argument("--summary", type=str, metavar='"phrase"', help="Fetch summary for the given phrase")
+    parser.add_argument("--table", type=str, metavar='"phrase"', help="Fetch table for the given phrase")
     parser.add_argument("--number", type=int, default=1, help="Table number to fetch (needed with --table)")
     parser.add_argument("--first-row-is-header", action="store_true", help="Indicates if the first row of the table is a header (needed with --table)")
     parser.add_argument("--file", type=str, metavar="file path", help="Path to the local file to use instead of fetching from the internet")
+    parser.add_argument("--count-words", type=str, metavar='"phrase"', help="Count words in the given article and update word-counts.json")
 
     args = parser.parse_args()
 
