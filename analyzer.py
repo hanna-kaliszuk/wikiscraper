@@ -102,7 +102,8 @@ def generate_chart(df, output_path):
             (p.get_x() + p.get_width() / 2, height),  # so that the label is exactly in the middle of the bar
             ha="center",
             va="bottom",
-            fontsize=13,
+            rotation=90,
+            fontsize=10,
             fontweight="bold",
             color="black",
             xytext=(0, 5),
@@ -112,6 +113,7 @@ def generate_chart(df, output_path):
     plt.tight_layout()
 
     try:
+        plt.savefig(output_path)
         print(f"Chart successfully saved to: {output_path}")
     except Exception as e:
         print(f"Error saving chart: {e}")

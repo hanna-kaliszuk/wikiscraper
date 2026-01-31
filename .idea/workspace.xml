@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="komentarze">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="README.md">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/integration_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/integration_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/analyzer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wiki_scraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/wiki_scraper.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,36 +49,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python tests.Python tests for tests.TestWikiScraper.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for tests.TestWikiScraper.test_get_internal_links.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for tests.test_wikiscraper.TestWikiScraper.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for tests.test_wikiscraper.TestWikiScraper.test_get_summary_offline.executor&quot;: &quot;Run&quot;,
-    &quot;Python.scraper.executor&quot;: &quot;Run&quot;,
-    &quot;Python.wikiscraper.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.highlight.mappings&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.highlight.symlinks&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.show.date&quot;: &quot;false&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python tests.Python tests for tests.TestWikiScraper.executor": "Run",
+    "Python tests.Python tests for tests.TestWikiScraper.test_get_internal_links.executor": "Run",
+    "Python tests.Python tests for tests.test_wikiscraper.TestWikiScraper.executor": "Run",
+    "Python tests.Python tests for tests.test_wikiscraper.TestWikiScraper.test_get_summary_offline.executor": "Run",
+    "Python.integration_test.executor": "Run",
+    "Python.scraper.executor": "Run",
+    "Python.wikiscraper.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.mappings": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.symlinks": "true",
+    "WebServerToolWindowPanel.toolwindow.show.date": "false",
+    "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
+    "WebServerToolWindowPanel.toolwindow.show.size": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Python.integration_test">
     <configuration name="integration_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="wikiscraper" />
@@ -196,7 +196,7 @@
       <workItem from="1769704248726" duration="14399000" />
       <workItem from="1769760136461" duration="10785000" />
       <workItem from="1769778591157" duration="17958000" />
-      <workItem from="1769800441378" duration="12101000" />
+      <workItem from="1769800441378" duration="12817000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -438,15 +438,37 @@
       <option name="project" value="LOCAL" />
       <updated>1769857399436</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="komentarze">
+      <option name="closed" value="true" />
+      <created>1769857871561</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1769857871561</updated>
+    </task>
+    <task id="LOCAL-00032" summary="wyodrębnienie funkcji">
+      <option name="closed" value="true" />
+      <created>1769857885427</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1769857885427</updated>
+    </task>
+    <task id="LOCAL-00033" summary="README.md">
+      <option name="closed" value="true" />
+      <created>1769857899248</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1769857899248</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="get_table ale dalej nie tak" />
-    <MESSAGE value="get_table" />
     <MESSAGE value="scrape controller" />
     <MESSAGE value="poprawa obsługi błędów i wyświetlannych komunikatów" />
     <MESSAGE value="dodanie count_words" />
@@ -470,7 +492,9 @@
     <MESSAGE value="gram" />
     <MESSAGE value="wydzielenie metod do funkcji" />
     <MESSAGE value="komentarze" />
-    <option name="LAST_COMMIT_MESSAGE" value="komentarze" />
+    <MESSAGE value="wyodrębnienie funkcji" />
+    <MESSAGE value="README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="README.md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -487,6 +511,7 @@
     <SUITE FILE_PATH="coverage/wikiscraper$.coverage" NAME=" Coverage Results" MODIFIED="1769854870912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/wikiscraper$wikiscraper.coverage" NAME="wikiscraper Coverage Results" MODIFIED="1769762749190" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/wikiscraper$scraper.coverage" NAME="wikiscraper Coverage Results" MODIFIED="1769717709914" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/wikiscraper$integration_test.coverage" NAME="integration_test Coverage Results" MODIFIED="1769857855285" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

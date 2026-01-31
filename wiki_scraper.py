@@ -397,7 +397,6 @@ class ScraperController:
         )
 
         result = scraper.count_words()
-        print(result)
         print("-" * 60)
 
     def _handle_analysis(self):
