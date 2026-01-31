@@ -1,14 +1,28 @@
+"""
+INTEGRATION TEST MODULE
+
+This module performs an end-to-end integration test fot the WikiScraper class. It verifies the entire scraping logic
+using a dummy HTML file.
+
+Usage:
+    Run via command line: python integration_test.py
+
+Author:
+    Hanna Kaliszuk, January 2026
+"""
+
+# --- standard library imports ---
 import sys
 import os
+
+# --- local imports ---
 from wiki_scraper import WikiScraper
 
-def run_integration_test():
-    print("--- RUNNING INTEGRATION TEST ---")
-
-    # przygotowanie fake danych
-    test_filename = "integration_test_doc.html"
-    fake_html = """
-    <html>
+# --- constants ---
+TEST_FILENAME = "integration_test_doc.html"
+DEFAULT_ENCODING = "utf-8"
+FAKE_HTML = """
+<html>
         <body>
             <div class="mw-parser-output">
                 <table class="infobox">
@@ -24,21 +38,25 @@ def run_integration_test():
             </div>
         </body>
     </html>
-    """
+"""
+def run_integration_test():
+    """Executes the integration test."""
+    print("--- RUNNING INTEGRATION TEST ---")
 
-    with open(test_filename, "w", encoding="utf-8") as f:
-        f.write(fake_html)
+    # create dummy data
+    with open(TEST_FILENAME, 'w', encoding=DEFAULT_ENCODING) as f:
+        f.write(FAKE_HTML)
 
-    print(f"    Created test file: {test_filename}")
+    print(f"    [OK] Created temporary test file: {TEST_FILENAME}")
 
     try:
         scraper = WikiScraper(
             phrase = "Test Pokemon",
             use_local_file=True,
-            local_file_path=test_filename
+            local_file_path=TEST_FILENAME
         )
 
-        print("    WikiScraper running offline")
+        print("    [OK] WikiScraper running offline")
 
         summary = scraper.get_summary()
         expected_summary = "Test Pokemon is a digital creature used for integration testing. It lives in the Python script."
@@ -55,16 +73,18 @@ def run_integration_test():
             print(f"ERROR: extracted table does not match the expected one ({expected_summary})")
             print("--- ENDING THE INTEGRATION TEST WITH ERROR ---")
             sys.exit(1)
-
+        print("    [OK] WikiScraper extracted the right table")
         print("--- SUCCESSFUL END OF THE INTEGRATION TEST ---")
 
     except Exception as e:
         print(f"EXCEPTION: {e}")
         sys.exit(1)
 
+    # cleanup
     finally:
-        if os.path.exists(test_filename):
-            os.remove(test_filename)
+        if os.path.exists(TEST_FILENAME):
+            os.remove(TEST_FILENAME)
+            print("    [OK] Removed temporary test file")
 
 
 if __name__ == "__main__":
