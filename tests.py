@@ -12,7 +12,10 @@ Usage:
     Run via command line: python tests.py
 
 Author:
-    Hanna Kaliszuk, January 2026
+    Hanna Kaliszuk
+
+Date:
+    January 2026
 """
 
 # --- standard library imports ---

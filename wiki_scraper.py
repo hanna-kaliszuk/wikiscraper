@@ -15,7 +15,10 @@ Usage:
     Run the script with appropriate command-line arguments described in `README.md`
 
 Author:
-    Hanna Kaliszuk, January 2026
+    Hanna Kaliszuk
+
+Date:
+    January 2026
 """
 
 

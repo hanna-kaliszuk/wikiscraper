@@ -2,7 +2,7 @@
 
 A command-line tool for scraping data from a chosen Wiki-page and conducting statistical analysis based on word frequency. 
 
-Developed as a final project for *Kurs Pythona 2025/26* at the University of Warsaw. 
+Developed as the final project for *Kurs Pythona 2025/26* at the University of Warsaw. 
 
 ## About the project 
 WikiScraper is a Python application designed to:

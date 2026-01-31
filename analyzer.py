@@ -14,7 +14,10 @@ Usage:
     This module is intended to be imported and used by `wiki_scraper.py`
 
 Author:
-    Hanna Kaliszuk, January 2026
+    Hanna Kaliszuk
+
+Date:
+    January 2026
 """
 
 # --- standard library imports ---

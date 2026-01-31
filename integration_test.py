@@ -8,7 +8,10 @@ Usage:
     Run via command line: python integration_test.py
 
 Author:
-    Hanna Kaliszuk, January 2026
+    Hanna Kaliszuk
+
+Date:
+    January 2026
 """
 
 # --- standard library imports ---
