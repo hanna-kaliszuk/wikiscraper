@@ -1,6 +1,6 @@
 import sys
 import os
-from wikiscraper import WikiScraper
+from wiki_scraper import WikiScraper
 
 def run_integration_test():
     print("--- RUNNING INTEGRATION TEST ---")

@@ -1,7 +1,7 @@
 import unittest
 import pandas as pd
 from bs4 import BeautifulSoup
-from wikiscraper import WikiScraper
+from wiki_scraper import WikiScraper
 
 class TestWikiScraper(unittest.TestCase):
     def setUp(self):
