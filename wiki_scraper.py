@@ -1,8 +1,8 @@
 """
 WIKI SCRAPER MODULE
 
-This module provides tools for scraping and analyzing data from Bulbapedia (or compatible MediaWiki sites. To change it
-please change BASE_URL constant)
+This module provides tools for scraping data from Bulbapedia (or compatible MediaWiki sites. To change it
+please change BASE_URL constant) and running the program as a whole.
 
 Functionalities included:
     - Fetching article summaries
