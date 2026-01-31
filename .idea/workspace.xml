@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="komentarze formalne">
+    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="komentarze">
       <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/analysis.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/analyzer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/integration_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/integration_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wiki_scraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/wiki_scraper.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,8 +80,8 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python tests.Python tests for tests.TestWikiScraper">
-    <configuration name="wiki_scraper" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.integration_test">
+    <configuration name="integration_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="wikiscraper" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -98,7 +95,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/wiki_scraper.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/integration_test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -173,11 +170,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.integration_test" />
         <item itemvalue="Python tests.Python tests for tests.TestWikiScraper" />
         <item itemvalue="Python tests.Python tests for tests.TestWikiScraper.test_get_internal_links" />
         <item itemvalue="Python tests.Python tests for tests.test_wikiscraper.TestWikiScraper.test_get_summary_offline" />
         <item itemvalue="Python tests.Python tests for tests.test_wikiscraper.TestWikiScraper" />
-        <item itemvalue="Python.wiki_scraper" />
       </list>
     </recent_temporary>
   </component>
@@ -199,7 +196,7 @@
       <workItem from="1769704248726" duration="14399000" />
       <workItem from="1769760136461" duration="10785000" />
       <workItem from="1769778591157" duration="17958000" />
-      <workItem from="1769800441378" duration="7481000" />
+      <workItem from="1769800441378" duration="12101000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -377,17 +374,77 @@
       <option name="project" value="LOCAL" />
       <updated>1769850909347</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="komentarze formalne, poprawa wykresu">
+      <option name="closed" value="true" />
+      <created>1769853197659</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1769853197659</updated>
+    </task>
+    <task id="LOCAL-00024" summary="komentarze formalne">
+      <option name="closed" value="true" />
+      <created>1769853225107</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1769853225107</updated>
+    </task>
+    <task id="LOCAL-00025" summary="wikiscraper-&gt;wiki_scraper">
+      <option name="closed" value="true" />
+      <created>1769853279907</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1769853279907</updated>
+    </task>
+    <task id="LOCAL-00026" summary="requrements">
+      <option name="closed" value="true" />
+      <created>1769853602050</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1769853602050</updated>
+    </task>
+    <task id="LOCAL-00027" summary="walidacja argumentów">
+      <option name="closed" value="true" />
+      <created>1769855689847</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1769855689847</updated>
+    </task>
+    <task id="LOCAL-00028" summary="gram">
+      <option name="closed" value="true" />
+      <created>1769856888078</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1769856888079</updated>
+    </task>
+    <task id="LOCAL-00029" summary="wydzielenie metod do funkcji">
+      <option name="closed" value="true" />
+      <created>1769856909963</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1769856909963</updated>
+    </task>
+    <task id="LOCAL-00030" summary="komentarze">
+      <option name="closed" value="true" />
+      <created>1769857399436</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1769857399436</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="initial commit" />
-    <MESSAGE value="wprowadzenie klasy Scraper, funkcja fetch_data i jej testy" />
-    <MESSAGE value="modyfikacja Scraper na WikiScraper, dodanie funkcji get_summary, modyfikacja testów" />
-    <MESSAGE value="get_table poczatek" />
     <MESSAGE value="get_table ale dalej nie tak" />
     <MESSAGE value="get_table" />
     <MESSAGE value="scrape controller" />
@@ -405,8 +462,15 @@
     <MESSAGE value="rysowanie wykresu z podsumowaniem" />
     <MESSAGE value="formalne komentarze po ang" />
     <MESSAGE value="finalna wersja analizy" />
+    <MESSAGE value="komentarze formalne, poprawa wykresu" />
     <MESSAGE value="komentarze formalne" />
-    <option name="LAST_COMMIT_MESSAGE" value="komentarze formalne" />
+    <MESSAGE value="wikiscraper-&gt;wiki_scraper" />
+    <MESSAGE value="requrements" />
+    <MESSAGE value="walidacja argumentów" />
+    <MESSAGE value="gram" />
+    <MESSAGE value="wydzielenie metod do funkcji" />
+    <MESSAGE value="komentarze" />
+    <option name="LAST_COMMIT_MESSAGE" value="komentarze" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -420,7 +484,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/wikiscraper$.coverage" NAME=" Coverage Results" MODIFIED="1769780569994" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/wikiscraper$.coverage" NAME=" Coverage Results" MODIFIED="1769854870912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/wikiscraper$wikiscraper.coverage" NAME="wikiscraper Coverage Results" MODIFIED="1769762749190" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/wikiscraper$scraper.coverage" NAME="wikiscraper Coverage Results" MODIFIED="1769717709914" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
