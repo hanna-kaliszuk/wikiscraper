@@ -30,7 +30,7 @@ git clone https://github.com/hanna-kaliszuk/wikiscraper
 ```bash
 pip install -r requirements.txt
 ```
-*(Ensure `requirements.txt` contains: `requests`, `pandas`, `beautifulsoup4`, `wordfreq`, `matplotlib`, `seaborn`, `lxml`)*
+*All dependecies are listed in requirements.txt*
 
 In case `error: externally-managed-environment` occurs, try:
 ```bash
@@ -104,4 +104,4 @@ python integration_test.py
 ```
 
 ## Analysis Report
-A detailed Jupiter Notebook report (`analysis.ipynb`) investigates the effectiveness of language detection method.
+A detailed Jupyter Notebook report (`analysis.ipynb`) investigates the effectiveness of language detection method.
