@@ -45,7 +45,7 @@ DEFAULT_ENCODING = "utf-8"
 WORD_COUNTS_FILE = "word-counts.json"
 
 
-def _table_to_dataframe(table, first_row_is_header):
+def table_to_dataframe(table, first_row_is_header):
     """
     Converts an BeautifulSoup <table> Tag object into a pandas DataFrame.
 
@@ -67,7 +67,7 @@ def _table_to_dataframe(table, first_row_is_header):
     return result
 
 
-def _count_table_values(df):
+def count_table_values(df):
     """
     Counts the occurrences of unique values in the DataFrame
 
@@ -244,7 +244,7 @@ class WikiScraper:
         selected_table = tables[table_number - 1]
 
         try:
-            df = _table_to_dataframe(selected_table, first_row_is_header)
+            df = table_to_dataframe(selected_table, first_row_is_header)
 
             if df is None:
                 return "Could not extract table", None
@@ -252,7 +252,7 @@ class WikiScraper:
             csv_filename = f"{self.phrase}.csv"
             df.to_csv(csv_filename, index=True, header=first_row_is_header, encoding='utf-8')
 
-            freq_series = _count_table_values(df)
+            freq_series = count_table_values(df)
             return df, freq_series
 
         except Exception as e:
