@@ -409,7 +409,10 @@ class ScraperController:
         analyzer = WordAnalyzer()
 
         df = analyzer.analyze(mode=self.args.mode, count=self.args.count)
-        print(df.to_string(index=False))
+
+        display_df = df[["word", "wiki_raw", "lang_freq"]].rename(columns={"wiki_raw": "article frequency",
+                                                                           "lang_freq": "language frequency"})
+        print(display_df.to_string(index=False))
 
         if self.args.chart:
             generate_chart(df, self.args.chart)

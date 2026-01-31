@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="README.md">
+    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="zmiana zapisu wykresu i opisywania kolumn">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/analyzer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wiki_scraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/wiki_scraper.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -196,7 +195,7 @@
       <workItem from="1769704248726" duration="14399000" />
       <workItem from="1769760136461" duration="10785000" />
       <workItem from="1769778591157" duration="17958000" />
-      <workItem from="1769800441378" duration="12817000" />
+      <workItem from="1769800441378" duration="13939000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -462,14 +461,21 @@
       <option name="project" value="LOCAL" />
       <updated>1769857899248</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="zmiana zapisu wykresu i opisywania kolumn">
+      <option name="closed" value="true" />
+      <created>1769858832010</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1769858832011</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="scrape controller" />
     <MESSAGE value="poprawa obsługi błędów i wyświetlannych komunikatów" />
     <MESSAGE value="dodanie count_words" />
     <MESSAGE value="wyodrębnienie get_content_div do f pomocniczej" />
@@ -494,7 +500,8 @@
     <MESSAGE value="komentarze" />
     <MESSAGE value="wyodrębnienie funkcji" />
     <MESSAGE value="README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="README.md" />
+    <MESSAGE value="zmiana zapisu wykresu i opisywania kolumn" />
+    <option name="LAST_COMMIT_MESSAGE" value="zmiana zapisu wykresu i opisywania kolumn" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
