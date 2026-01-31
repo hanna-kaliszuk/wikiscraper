@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="zmiana zapisu wykresu i opisywania kolumn">
+    <list default="true" id="ea8edf27-7426-48d3-8a81-e7826c3613b5" name="Changes" comment="inna nazwa kolumn dla analyze relative word frequency">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wiki_scraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/wiki_scraper.py" afterDir="false" />
     </list>
@@ -48,37 +48,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python tests.Python tests for tests.TestWikiScraper.executor": "Run",
-    "Python tests.Python tests for tests.TestWikiScraper.test_get_internal_links.executor": "Run",
-    "Python tests.Python tests for tests.test_wikiscraper.TestWikiScraper.executor": "Run",
-    "Python tests.Python tests for tests.test_wikiscraper.TestWikiScraper.test_get_summary_offline.executor": "Run",
-    "Python.integration_test.executor": "Run",
-    "Python.scraper.executor": "Run",
-    "Python.wikiscraper.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "WebServerToolWindowPanel.toolwindow.highlight.mappings": "true",
-    "WebServerToolWindowPanel.toolwindow.highlight.symlinks": "true",
-    "WebServerToolWindowPanel.toolwindow.show.date": "false",
-    "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
-    "WebServerToolWindowPanel.toolwindow.show.size": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python tests.Python tests for tests.TestWikiScraper.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for tests.TestWikiScraper.test_get_internal_links.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for tests.test_wikiscraper.TestWikiScraper.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for tests.test_wikiscraper.TestWikiScraper.test_get_summary_offline.executor&quot;: &quot;Run&quot;,
+    &quot;Python.integration_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.scraper.executor&quot;: &quot;Run&quot;,
+    &quot;Python.wikiscraper.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.mappings&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.symlinks&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.date&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Python.integration_test">
     <configuration name="integration_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="wikiscraper" />
@@ -195,7 +195,8 @@
       <workItem from="1769704248726" duration="14399000" />
       <workItem from="1769760136461" duration="10785000" />
       <workItem from="1769778591157" duration="17958000" />
-      <workItem from="1769800441378" duration="13939000" />
+      <workItem from="1769800441378" duration="14117000" />
+      <workItem from="1769869076651" duration="1122000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -469,14 +470,21 @@
       <option name="project" value="LOCAL" />
       <updated>1769858832011</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="inna nazwa kolumn dla analyze relative word frequency">
+      <option name="closed" value="true" />
+      <created>1769859719404</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1769859719404</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="poprawa obsługi błędów i wyświetlannych komunikatów" />
     <MESSAGE value="dodanie count_words" />
     <MESSAGE value="wyodrębnienie get_content_div do f pomocniczej" />
     <MESSAGE value="funkcje pomocnicze" />
@@ -501,7 +509,8 @@
     <MESSAGE value="wyodrębnienie funkcji" />
     <MESSAGE value="README.md" />
     <MESSAGE value="zmiana zapisu wykresu i opisywania kolumn" />
-    <option name="LAST_COMMIT_MESSAGE" value="zmiana zapisu wykresu i opisywania kolumn" />
+    <MESSAGE value="inna nazwa kolumn dla analyze relative word frequency" />
+    <option name="LAST_COMMIT_MESSAGE" value="inna nazwa kolumn dla analyze relative word frequency" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
