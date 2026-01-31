@@ -24,7 +24,7 @@ analysis
 The project requires Python 3.8+ and external libraries. 
 1. **Clone the repository:**
 ```bash 
-git clone <>
+git clone https://github.com/hanna-kaliszuk/wikiscraper
 cd <folder-name>
 ```
 2. **Install dependencies**:
