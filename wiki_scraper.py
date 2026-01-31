@@ -35,7 +35,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 # --- local imports ---
-from analyzer import WordAnalyzer
+from analyzer import WordAnalyzer, generate_chart
 
 # --- constants ---
 BASE_URL = "https://bulbapedia.bulbagarden.net"
@@ -43,6 +43,43 @@ CONTENT_CLASS = "mw-parser-output"
 CONTENT_ID = "mw-content-text"
 DEFAULT_ENCODING = "utf-8"
 WORD_COUNTS_FILE = "word-counts.json"
+
+
+def _table_to_dataframe(table, first_row_is_header):
+    """
+    Converts an BeautifulSoup <table> Tag object into a pandas DataFrame.
+
+    Arguments:
+        - table (tag): the BeautifulSoup Tag object representing the table
+        - first_row_is_header (bool): a flag determining whether the first row should be treated as headers.
+
+    Returns:
+        The resulting DataFrame or None if parsing failed.
+    """
+    html_str = str(table)
+
+    header_arg = 0 if first_row_is_header else None
+    index_col_arg = 0
+
+    dfs = pd.read_html(StringIO(html_str), header=header_arg, index_col=index_col_arg, flavor='bs4')
+
+    result = dfs[0] if dfs else None
+    return result
+
+
+def _count_table_values(df):
+    """
+    Counts the occurrences of unique values in the DataFrame
+
+    Arguments:
+        - df (pd.DataFrame): the DataFrame to be analyzed
+
+    Returns:
+        pd.Series: a series containing counts of unique values
+    """
+    if df.empty:
+        return pd.Series()
+    return df.astype(str).stack().value_counts()
 
 
 class WikiScraper:
@@ -106,41 +143,6 @@ class WikiScraper:
         response = requests.get(url)
         response.raise_for_status()
         return response.text
-
-    def _table_to_dataframe(self, table, first_row_is_header):
-        """
-        Converts an BeautifulSoup <table> Tag object into a pandas DataFrame.
-
-        Arguments:
-            - table (tag): the BeautifulSoup Tag object representing the table
-            - first_row_is_header (bool): a flag determining whether the first row should be treated as headers.
-
-        Returns:
-            The resulting DataFrame or None if parsing failed.
-        """
-        html_str = str(table)
-
-        header_arg = 0 if first_row_is_header else None
-        index_col_arg = 0
-
-        dfs = pd.read_html(StringIO(html_str), header=header_arg, index_col=index_col_arg, flavor='bs4')
-
-        result = dfs[0] if dfs else None
-        return result
-
-    def _count_table_values(self, df):
-        """
-        Counts the occurrences of unique values in the DataFrame
-
-        Arguments:
-            - df (pd.DataFrame): the DataFrame to be analyzed
-
-        Returns:
-            pd.Series: a series containing counts of unique values
-        """
-        if df.empty:
-            return pd.Series()
-        return df.astype(str).stack().value_counts()
 
     def fetch_data(self):
         """
@@ -242,7 +244,7 @@ class WikiScraper:
         selected_table = tables[table_number - 1]
 
         try:
-            df = self._table_to_dataframe(selected_table, first_row_is_header)
+            df = _table_to_dataframe(selected_table, first_row_is_header)
 
             if df is None:
                 return "Could not extract table", None
@@ -250,7 +252,7 @@ class WikiScraper:
             csv_filename = f"{self.phrase}.csv"
             df.to_csv(csv_filename, index=True, header=first_row_is_header, encoding='utf-8')
 
-            freq_series = self._count_table_values(df)
+            freq_series = _count_table_values(df)
             return df, freq_series
 
         except Exception as e:
@@ -341,8 +343,8 @@ class ScraperController:
     Attributes:
         args (argparse.Namespace): command line arguments (parsed)
     """
-    def __init__(self, args):
-        self.args = args
+    def __init__(self, arguments):
+        self.args = arguments
 
     def _handle_summary(self):
         """Handles the summary extraction"""
@@ -411,7 +413,7 @@ class ScraperController:
         print(df.to_string(index=False))
 
         if self.args.chart:
-            analyzer.generate_chart(df, self.args.chart)
+            generate_chart(df, self.args.chart)
 
         print("-" * 60)
         return
@@ -473,20 +475,27 @@ class ScraperController:
         elif self.args.auto_count_words:
             self._handle_auto_count()
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="WikiScraper Tool for Bulbapedia")
 
     # action arguments
-    parser.add_argument("--summary", type=str, metavar='"phrase"', help="Fetch summary for the given phrase")
+    parser.add_argument("--summary", type=str, metavar='"phrase"',
+                        help="Fetch summary for the given phrase")
     parser.add_argument("--table", type=str, metavar='"phrase"', help="Fetch table for the given phrase")
-    parser.add_argument("--count-words", type=str, metavar='"phrase"', help="Count words in the given article and update word-counts.json")
-    parser.add_argument("--auto-count-words", type=str, metavar='"phrase"', help="Recursively count words starting from 'phrase'")
-    parser.add_argument("--analyze-relative-word-frequency", action="store_true", help="Analyze frequencies")
+    parser.add_argument("--count-words", type=str, metavar='"phrase"',
+                        help="Count words in the given article and update word-counts.json")
+    parser.add_argument("--auto-count-words", type=str, metavar='"phrase"',
+                        help="Recursively count words starting from 'phrase'")
+    parser.add_argument("--analyze-relative-word-frequency", action="store_true",
+                        help="Analyze frequencies")
     # table options
     parser.add_argument("--number", type=int, help="Table number to fetch (needed with --table)")
-    parser.add_argument("--first-row-is-header", action="store_true", help="Indicates if the first row of the table is a header (needed with --table)")
+    parser.add_argument("--first-row-is-header", action="store_true",
+                        help="Indicates if the first row of the table is a header (needed with --table)")
     # local file options
-    parser.add_argument("--file", type=str, metavar='"file/path"', help="Path to the local file to use instead of fetching from the internet")
+    parser.add_argument("--file", type=str, metavar='"file/path"',
+                        help="Path to the local file to use instead of fetching from the internet")
     # auto scraping options
     parser.add_argument("--depth", type=int, help="Depth for auto-scraping (default = 1)")
     parser.add_argument("--wait", type=float, help="Wait time between requests (seconds)")
@@ -517,7 +526,6 @@ if __name__ == "__main__":
         if (args.mode is None) or (args.mode not in ["article", "language"]) or (args.count is None) or (args.count < 1):
             print("ERROR: --analyze-relative-word-frequency requires --mode (article, language) and --count (> 1)")
             sys.exit(1)
-
 
     controller = ScraperController(args)
     controller.run()

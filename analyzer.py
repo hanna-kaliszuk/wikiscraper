@@ -31,6 +31,92 @@ DEFAULT_ENCODING = "utf-8"
 WORD_COUNTS_FILE = "word-counts.json"
 
 
+def generate_chart(df, output_path):
+    """
+    Generates and saves a bar chart comparing relative frequencies.
+
+    Arguments:
+        df (pd.DataFrame): the data to plot
+        output_path (str): path to output file where the chart will be saved
+    """
+
+    if df.empty:
+        print("No data to plot.")
+        return
+
+    # make data suitable for the plot
+    df_melted = df.melt(
+        id_vars="word",
+        value_vars=["wiki_freq_norm", "lang_freq_norm"],
+        var_name="source",
+        value_name="frequency"
+    )
+
+    # change labels for the legend
+    df_melted["source"] = df_melted["source"].replace({
+        "wiki_freq_norm": "Wiki Article",
+        "lang_freq_norm": "General Language"
+    })
+
+    sns.set_theme(style="white", font_scale=1.2)
+    plt.figure(figsize=(12, 6))
+
+    # create bars
+    ax = sns.barplot(
+        data=df_melted,
+        x="word",
+        y="frequency",
+        hue="source",
+        palette="cubehelix",
+        edgecolor="black"
+    )
+
+    plt.title(
+        'Relative Word Frequency Comparison',
+        fontsize=22,
+        fontweight='bold'
+    )
+    plt.xlabel("")
+    plt.ylabel("")
+    plt.xticks(rotation=45)
+    plt.legend(title=None, loc='upper right')
+
+    # remove plot borders and hide Y-axis as the values will be displayed on bars
+    sns.despine(left=True, right=True, top=True, bottom=False)
+    ax.yaxis.set_visible(False)
+
+    # Y-axis limit adjustment so that the label fits on the highest bar
+    max_val = df_melted["frequency"].max()
+    if max_val > 0:
+        ax.set_ylim(0, max_val * 1.2)
+
+    for p in ax.patches:
+        height = p.get_height()
+
+        if height <= 0.001:
+            continue
+
+        # add data labels to bars formating them as percentages
+        ax.annotate(
+            f"{height:.1%}",
+            (p.get_x() + p.get_width() / 2, height),  # so that the label is exactly in the middle of the bar
+            ha="center",
+            va="bottom",
+            fontsize=13,
+            fontweight="bold",
+            color="black",
+            xytext=(0, 5),
+            textcoords="offset points"
+        )
+
+    plt.tight_layout()
+
+    try:
+        print(f"Chart successfully saved to: {output_path}")
+    except Exception as e:
+        print(f"Error saving chart: {e}")
+
+
 class WordAnalyzer:
     """
     A class to analyze and visualize word frequency data.
@@ -121,89 +207,3 @@ class WordAnalyzer:
 
         df = pd.DataFrame(data)
         return df
-
-    def generate_chart(self, df, output_path):
-        """
-        Generates and saves a bar chart comparing relative frequencies.
-
-        Arguments:
-            df (pd.DataFrame): the data to plot
-            output_path (str): path to output file where the chart will be saved
-        """
-
-        if df.empty:
-            print("No data to plot.")
-            return
-
-        # make data suitable for the plot
-        df_melted = df.melt(
-            id_vars="word",
-            value_vars=["wiki_freq_norm", "lang_freq_norm"],
-            var_name="source",
-            value_name="frequency"
-        )
-
-        # change labels for the legend
-        df_melted["source"] = df_melted["source"].replace({
-            "wiki_freq_norm": "Wiki Article",
-            "lang_freq_norm": "General Language"
-        })
-
-        sns.set_theme(style="white", font_scale=1.2)
-        plt.figure(figsize=(12, 6))
-
-        # create bars
-        ax = sns.barplot(
-            data=df_melted,
-            x="word",
-            y="frequency",
-            hue="source",
-            palette="cubehelix",
-            edgecolor="black"
-        )
-
-
-        plt.title(
-            'Relative Word Frequency Comparison',
-            fontsize=22,
-            fontweight='bold'
-        )
-        plt.xlabel("")
-        plt.ylabel("")
-        plt.xticks(rotation=45)
-        plt.legend(title=None, loc='upper right')
-
-        # remove plot borders and hide Y-axis as the values will be displayed on bars
-        sns.despine(left=True, right=True, top=True, bottom=False)
-        ax.yaxis.set_visible(False)
-
-        # Y-axis limit adjustment so that the label fits on the highest bar
-        max_val = df_melted["frequency"].max()
-        if max_val > 0:
-            ax.set_ylim(0, max_val * 1.2)
-
-        for p in ax.patches:
-            height = p.get_height()
-
-            if height <= 0.001:
-                continue
-
-            # add data labels to bars formating them as percentages
-            ax.annotate(
-                f"{height:.1%}",
-                (p.get_x() + p.get_width() / 2, height),  # so that the label is exactly in the middle of the bar
-                ha="center",
-                va="bottom",
-                fontsize=13,
-                fontweight="bold",
-                color="black",
-                xytext=(0, 5),
-                textcoords="offset points"
-            )
-
-        plt.tight_layout()
-
-        try:
-            print(f"Chart successfully saved to: {output_path}")
-        except Exception as e:
-            print(f"Error saving chart: {e}")
