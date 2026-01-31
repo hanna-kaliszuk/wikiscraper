@@ -480,27 +480,44 @@ if __name__ == "__main__":
     parser.add_argument("--summary", type=str, metavar='"phrase"', help="Fetch summary for the given phrase")
     parser.add_argument("--table", type=str, metavar='"phrase"', help="Fetch table for the given phrase")
     parser.add_argument("--count-words", type=str, metavar='"phrase"', help="Count words in the given article and update word-counts.json")
-    parser.add_argument("--auto-count-words", type=str, metavar='"phrase"', help="Recursivelu count words starting from 'phrase'")
+    parser.add_argument("--auto-count-words", type=str, metavar='"phrase"', help="Recursively count words starting from 'phrase'")
     parser.add_argument("--analyze-relative-word-frequency", action="store_true", help="Analyze frequencies")
     # table options
-    parser.add_argument("--number", type=int, default=1, help="Table number to fetch (needed with --table)")
+    parser.add_argument("--number", type=int, help="Table number to fetch (needed with --table)")
     parser.add_argument("--first-row-is-header", action="store_true", help="Indicates if the first row of the table is a header (needed with --table)")
     # local file options
-    parser.add_argument("--file", type=str, metavar="file path", help="Path to the local file to use instead of fetching from the internet")
+    parser.add_argument("--file", type=str, metavar='"file/path"', help="Path to the local file to use instead of fetching from the internet")
     # auto scraping options
-    parser.add_argument("--depth", type=int, default=1, help="Depth for auto-scraping (default = 1)")
-    parser.add_argument("--wait", type=float, default=1.0, help="Wait time between requests (seconds)")
+    parser.add_argument("--depth", type=int, help="Depth for auto-scraping (default = 1)")
+    parser.add_argument("--wait", type=float, help="Wait time between requests (seconds)")
     # analysis options
-    parser.add_argument("--mode", type=str, default="language", choices=["article", "language"], help="Sort mode for analysis")
-    parser.add_argument("--count", type=int, default=10, help="Number of words to analyze")
-    parser.add_argument("--chart", type=str, metavar="path.png", help="Path to save chart")
+    parser.add_argument("--mode", type=str, choices=["article", "language"], help="Sort mode for analysis")
+    parser.add_argument("--count", type=int, help="Number of most frequent words to be considered")
+    parser.add_argument("--chart", type=str, metavar='"file path.png"', help="Path to save chart")
 
     args = parser.parse_args()
 
-    # ensure at least one action argument is provided
-    if not any([args.summary, args.table, args.count_words, args.auto_count_words, args.analyze_relative_word_frequency]):
+    # validating arguments
+    if not any([args.summary, args.table, args.count_words,
+                args.auto_count_words, args.analyze_relative_word_frequency]):
         parser.print_help()
         sys.exit(1)
+
+    elif args.table:
+        if (args.number is None) or (args.number < 1):
+            print("ERROR: --table requires --number (> 1)")
+            sys.exit(1)
+
+    elif args.auto_count_words:
+        if (args.depth is None) or (args.wait is None) or (args.depth < 0) or (args.wait < 0):
+            print("ERROR: --auto-count-words requires --depth (> 0) and --wait (> 0)")
+            sys.exit(1)
+
+    elif args.analyze_relative_word_frequency:
+        if (args.mode is None) or (args.mode not in ["article", "language"]) or (args.count is None) or (args.count < 1):
+            print("ERROR: --analyze-relative-word-frequency requires --mode (article, language) and --count (> 1)")
+            sys.exit(1)
+
 
     controller = ScraperController(args)
     controller.run()
