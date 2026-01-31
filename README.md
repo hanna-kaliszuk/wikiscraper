@@ -39,6 +39,7 @@ The program is executed via the command line using:
 python wiki_scraper.py <arguments>
 ```
 Depending on the given arguments, the following operations will occur:
+
 *Please note that `[--argument]` means that this argument is optional and each `"phrase"` is the user's input*
 
 ### Fetch Summary 
