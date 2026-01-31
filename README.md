@@ -32,6 +32,12 @@ pip install -r requirements.txt
 ```
 *(Ensure `requirements.txt` contains: `requests`, `pandas`, `beautifulsoup4`, `wordfreq`, `matplotlib`, `seaborn`, `lxml`)*
 
+In case `error: externally-managed-environment` occurs, try:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 ## Usage
 The program is executed via the command line using:
 ```bash 
